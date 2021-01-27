@@ -20,6 +20,10 @@
    text-shadow: 3px 3px cornflowerblue;
 }
 
+.slot:hover {
+   cursor: pointer;
+}
+
 .slotNumber {
    width: 20px;
    margin: 0px;

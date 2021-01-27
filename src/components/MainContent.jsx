@@ -206,7 +206,7 @@ class MainContent extends Component {
                   className={slotInfo[0].selected ? "checkedSlot" : "slotNotChecked"}
                   onClick={() => (slotInfo[0].x !== 3 || slotInfo[0].y !== 3) ? this.clickSlot(row, column) : null}
                >
-                  <div className="row">
+                  <div className="row slot">
                      {slotInfo[0].text}
                      <p className="row slotNumber">{number}</p>
                   </div>

@@ -8,7 +8,7 @@ import './MainContent.css'
 import 'antd/dist/antd.css';
 
 // Data
-import { slots } from '../data/data'
+import { slots, positions } from '../data/data'
 import bingo from "../assets/bingo.png"
 import chickenWinner from "../assets/chickenWinner.png"
 import winnerBell from "../assets/winnerBell.flac"
@@ -38,8 +38,10 @@ class MainContent extends Component {
    }
 
    componentDidMount() {
+      const newSlotsArray = this.shuffleAndSetRandomPosition()
+
       this.setState({
-         slotsArray: slots
+         slotsArray: newSlotsArray
       })
       this.updateWindowDimensions();
       window.addEventListener('resize', this.updateWindowDimensions);
@@ -51,6 +53,21 @@ class MainContent extends Component {
          height: window.innerHeight,
          width: window.innerWidth
       });
+   }
+
+   shuffleAndSetRandomPosition = () => {
+      const positionsrandom = positions.sort(() => Math.random() - 0.5)
+      const slotsArray = slots;
+
+      for (let i = 0; i < positionsrandom.length; i++) {
+         slotsArray[i].x = positionsrandom[i].x
+         slotsArray[i].y = positionsrandom[i].y
+         slotsArray[i].number = positionsrandom;
+      }
+
+      const newArray = slotsArray
+
+      return newArray
    }
 
    validateBingo = (checkedSlotsArray) => {
@@ -142,11 +159,12 @@ class MainContent extends Component {
    }
 
    restart = () => {
-      const { slotsArray } = this.state
-      slotsArray.forEach(obj => obj.selected = false)
+      const randomSlots = this.shuffleAndSetRandomPosition()
+
+      randomSlots.forEach(obj => obj.selected = false)
 
       this.setState({
-         slotsArray,
+         slotsArray: randomSlots,
          checkedSlotsArray: [
             {
                id: 13,
@@ -204,26 +222,41 @@ class MainContent extends Component {
       const maxRows = 5;
       const maxColumns = 5;
       const bingoCard = [];
-      let number = 1;
 
       // Print all the slots to show the Bingo card
       for (let row = 1; row <= maxRows; row++) {
          const bingoCardRow = [];
          for (let column = 1; column <= maxColumns; column++) {
+
             const slotInfo = slotsArray.filter(slot => slot.x === row && slot.y === column)
-            const slot =
-               <td
-                  key={slotInfo[0].id}
-                  className={slotInfo[0].selected ? "checkedSlot" : "slotNotChecked"}
-                  onClick={() => (slotInfo[0].x !== 3 || slotInfo[0].y !== 3) ? this.clickSlot(row, column) : null}
-               >
-                  <div className="row slot">
-                     {slotInfo[0].text}
-                     <p className="row slotNumber">{number}</p>
-                  </div>
-               </td>
+            let slot = null;
+
+            if (slotInfo[0].x !== 3 || slotInfo[0].y !== 3) {
+               slot =
+                  <td
+                     key={slotInfo[0].id}
+                     className={slotInfo[0].selected ? "checkedSlot" : "slotNotChecked"}
+                     onClick={() => this.clickSlot(row, column)}
+                  >
+                     <div className="row slot">
+                        {slotInfo[0].text}
+                        <p className="row slotNumber">{slotInfo[0].id}</p>
+                     </div>
+                  </td>
+            } else {
+               slot =
+                  <td
+                     key={slotInfo[0].id}
+                     className="centralSlot"
+                  >
+                     <div className="row slot">
+                        {slotInfo[0].text}
+                        <p className="row slotNumber">{slotInfo[0].id}</p>
+                     </div>
+                  </td>
+            }
+
             bingoCardRow.push(slot)
-            number++
          }
          bingoCard.push(<tr key={row}>{bingoCardRow}</tr>)
       }
@@ -284,7 +317,6 @@ class MainContent extends Component {
             <div className="row restartButton">
                <div className="col-11">
                   <Button type="primary" onClick={this.restart}>Restart</Button>
-
                </div>
                <div className="col-1">
                   Sound up

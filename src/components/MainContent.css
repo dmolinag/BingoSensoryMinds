@@ -51,6 +51,18 @@
    margin: 15px;
    word-wrap: break-word
 }
+
+.centralSlot {
+   text-align: center;
+   height: 60px;
+   border: 2px solid darkgray;
+   background-color: rgb(174, 0, 255);
+   color: aliceblue;
+   border-radius: 10%;
+   margin: 15px;
+   word-wrap: break-word
+}
+
 .winnerMessage {
    color: darkgreen;
    text-shadow: 2px 2px burlywood;

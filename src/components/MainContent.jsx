@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Button } from 'antd';
 import Confetti from 'react-confetti'
+import UIfx from 'uifx'
 
 // Style
 import './MainContent.css'
@@ -10,8 +11,14 @@ import 'antd/dist/antd.css';
 import { slots } from '../data/data'
 import bingo from "../assets/bingo.png"
 import chickenWinner from "../assets/chickenWinner.png"
+import winnerBell from "../assets/winnerBell.flac"
+
+const bell = new UIfx(
+   winnerBell,
+)
 
 class MainContent extends Component {
+
    constructor(props) {
       super(props);
 
@@ -96,6 +103,10 @@ class MainContent extends Component {
       this.setState({
          winner
       })
+
+      if (winner) {
+         bell.play()
+      }
    }
 
    // Events

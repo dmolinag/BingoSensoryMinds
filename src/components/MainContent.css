@@ -1,0 +1,56 @@
+.bingo {
+   margin: auto;
+   text-align: -webkit-center;
+}
+
+.bingoCard {
+   width: 100%;
+}
+
+.table{
+   border: 2px solid darkgray;
+   position: relative;
+}
+
+.headerSlot {
+   border: 1px solid darkgray;
+   text-align: center;
+   font-style: oblique;
+   color: darkblue;
+   text-shadow: 3px 3px cornflowerblue;
+}
+
+.slotNumber {
+   width: 20px;
+   margin: 0px;
+   color: aliceblue
+}
+
+.slotNotChecked {
+   text-align: center;
+   height: 60px;
+   border: 2px solid darkgray;
+   background-color: darkolivegreen;
+   color: chartreuse;
+   border-radius: 10%;
+   margin: 15px;
+   word-wrap: break-word
+}
+
+.checkedSlot {
+   text-align: center;
+   height: 60px;
+   border: 1px solid darkgray;
+   background-color: chartreuse;
+   text-decoration: line-through;
+   border-radius: 10%;
+   margin: 15px;
+   word-wrap: break-word
+}
+.winnerMessage {
+   color: darkgreen;
+   text-shadow: 2px 2px burlywood;
+}
+.restartButton {
+   margin: 10px;
+}

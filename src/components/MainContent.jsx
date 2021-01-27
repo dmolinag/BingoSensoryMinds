@@ -282,7 +282,13 @@ class MainContent extends Component {
             }
 
             <div className="row restartButton">
-               <Button type="primary" onClick={this.restart}>Restart</Button>
+               <div className="col-11">
+                  <Button type="primary" onClick={this.restart}>Restart</Button>
+
+               </div>
+               <div className="col-1">
+                  Sound up
+               </div>
             </div>
          </div>
       );
